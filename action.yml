@@ -1,0 +1,20 @@
+name: 'Install Deployer'
+description: 'Installs the `depl` Rust crate from crates.io'
+author: 'Klimenty Titov <aclo.create@gmail.com>'
+
+inputs:
+  version:
+    description: 'Version of `depl` to install. Use "latest" or leave empty for the latest version.'
+    required: false
+    default: '2.4.0'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install `depl`
+      shell: bash
+      run: |
+        curl -L -o depl.deb "https://github.com/impulse-sw/deployer/releases/download/$VERSION/deployer-$VERSION-x86_64.deb"
+        sudo apt update
+        sudo apt install -y ./depl.deb
+        rm depl.deb
