@@ -13,8 +13,10 @@ runs:
   steps:
     - name: Install `depl`
       shell: bash
+      env:
+        VERSION: ${{ inputs.version }}
       run: |
-        curl -L -o depl.deb "https://github.com/impulse-sw/deployer/releases/download/$VERSION/deployer-$VERSION-x86_64.deb"
+        curl -fsSL -o depl.deb "https://github.com/impulse-sw/deployer/releases/download/$VERSION/deployer-$VERSION-x86_64.deb"
         sudo dpkg -i ./depl.deb
         rm depl.deb
 
