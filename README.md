@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Deployer
-        uses: impulse-sw/deployer-action@0.4
+        uses: impulse-sw/deployer-action@0.5
       - name: Run pipeline
         run: |
           depl run pipeline-name

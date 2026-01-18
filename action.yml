@@ -2,21 +2,21 @@ name: 'Install Deployer'
 description: 'Installs the `depl` Rust crate from crates.io'
 author: 'Klimenty Titov <aclo.create@gmail.com>'
 
-inputs:
-  version:
-    description: 'Version of `depl` to install. Use "latest" or leave empty for the latest version.'
-    required: false
-    default: '2.4.0'
-
 runs:
   using: 'composite'
   steps:
+    - name: Fetch Github Release Asset
+      uses: dsaltares/fetch-gh-release-asset@1.1.2
+      with:
+        repo: 'impulse-sw/deployer'
+        regex: true
+        file: "deployer-.*\\.deb"
+        target: 'depl.deb'
+        token: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Install `depl`
       shell: bash
-      env:
-        VERSION: ${{ inputs.version }}
       run: |
-        curl -fsSL -o depl.deb "https://github.com/impulse-sw/deployer/releases/download/$VERSION/deployer-$VERSION-x86_64.deb"
         sudo dpkg -i ./depl.deb
         rm depl.deb
 
